@@ -23,6 +23,7 @@ namespace FormCrawler
             curRoom = map[curPlayer.colPos, curPlayer.rowPos];
 
             curRoom.Visit();
+            Communicate(curRoom);
         }
 
         public void Explore(string _Dir)
@@ -55,11 +56,25 @@ namespace FormCrawler
         {
             curRoom = map[curPlayer.colPos, curPlayer.rowPos];
             curRoom.Visit();
+            Communicate(curRoom);
         }
 
-        private void Communicate()
+        private void Communicate(Room _curRoom)
         {
+            Dictionary<string, bool> curAvDir = _curRoom.getAvailablePaths();
+            int exits = 0;
 
+
+            foreach (var key in curAvDir)
+            {
+                if (key.Value)
+                {
+                    exits++;
+                }
+            }
+            string OutPut = "You have entered the room, the room has " + exits + " exit(s)\n";
+
+            mGame.roomCom.AppendText(OutPut);
         }
     }
 }
