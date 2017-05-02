@@ -60,6 +60,7 @@
     <Compile Include="PickMapSize.Designer.cs">
       <DependentUpon>PickMapSize.cs</DependentUpon>
     </Compile>
+    <Compile Include="Player.cs" />
     <Compile Include="PopulateMap.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

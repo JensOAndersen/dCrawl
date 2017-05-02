@@ -26,7 +26,15 @@ namespace FormCrawler
 
         //variable to hold the "CreateMap class", if the main game is to refer to the map, refer to this variable.
         Room[,] map { get; set; }
-        Control[] pBoxReference { get; set; }
+
+        //reference to the dungeon explorer class, allows movement in the rooms
+        DungeonExplorer dExplorer {get; set;}
+
+        //player variable
+        Player curPlayer = new Player("The Hero");
+
+        //variable to hold the textbox component, exposes it to other classes so they can send messages to the main window.
+        public TextBox roomCom;
 
         //dictionary to match open paths with 
         Dictionary<string, string> pngNames = new Dictionary<string, string> {
@@ -59,6 +67,8 @@ namespace FormCrawler
         //Runs methods that creates the map.
         public void CreateMap()
         {
+            roomCom = RoomCommunication;
+
             map = new CreateMapArray(mCol,mRow).ReturnRoomMap();
 
             //runs the PopulateMap function, which populates the map
@@ -68,7 +78,7 @@ namespace FormCrawler
             PlaceMapOnForm();
 
             //starts the exploration
-            DungeonExplorer dEx = new DungeonExplorer(this, map);
+            dExplorer = new DungeonExplorer(this, map, curPlayer);
         }
 
         private void PlaceMapOnForm()
@@ -82,6 +92,7 @@ namespace FormCrawler
             var exeDir = AppDomain.CurrentDomain.BaseDirectory;
             var imgDir = Path.Combine(exeDir, "../../Img");
             var imgPath = Path.Combine(imgDir, "north.png");
+            var emptyPath = Path.Combine(imgDir, "black.png");
 
             //loops through the entire array and places images based on the content of the room
             for(int row = 0; row < map.GetLength(1); row++)
@@ -89,9 +100,11 @@ namespace FormCrawler
                 for (int col = 0; col < map.GetLength(0); col++)
                 {
                     string RoomID = "";
-
                     string whatImg = "";
-
+                    Image roomImg;
+                    Image emptyImg = Image.FromFile(emptyPath);
+                    
+                    
                     if (map[col, row] == null)
                     {
                         //not used
@@ -115,16 +128,22 @@ namespace FormCrawler
                     //creates an imagepat
                     imgPath = Path.Combine(imgDir, pngNames[whatImg]);
 
+                    roomImg = Image.FromFile(imgPath);
+
                     //creates the new pictureBox
                     pBox = new PictureBox {
                         Name = RoomID,
                         Size = new Size(tileSize, tileSize),
                         Location = new Point(leftPosStart + (col * tileSize), topPosStart + (row * tileSize)),
-                        BackgroundImage = Image.FromFile(imgPath)
+                        BackgroundImage = Image.FromFile(emptyPath)
                     };
+
                     this.Controls.Add(pBox);
+
+                    //adds reference to the picture box in the corresponding room.
                     if (map[col,row] != null)
                     {
+                        map[col, row].RoomImg = roomImg;
                         map[col, row].setPBoxReference(pBox);
                     }
                 }
@@ -134,22 +153,22 @@ namespace FormCrawler
 
         private void BtnRight_Click(object sender, EventArgs e)
         {
-
+            dExplorer.Explore("east");
         }
 
         private void BtnLeft_Click(object sender, EventArgs e)
         {
-
+            dExplorer.Explore("west");
         }
 
         private void BtnUp_Click(object sender, EventArgs e)
         {
-
+            dExplorer.Explore("north");
         }
 
         private void BtnDown_Click(object sender, EventArgs e)
         {
-
+            dExplorer.Explore("south");
         }
 
         private void MapPanel_Paint_1(object sender, PaintEventArgs e)

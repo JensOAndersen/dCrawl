@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Drawing;
 
 namespace FormCrawler
 {
@@ -14,10 +15,11 @@ namespace FormCrawler
         //defines whether the room is an exit or an entry, in the entire map, there is only one entrance and one exit.
         public bool isEntry { get; set; }
         public bool isExit { get; set; }
+        public bool isVisited { get; set; }
         public bool visited { get; set; } = false;
-
         public int roomID { get; }
         public string roomName { get; }
+        public Image RoomImg { get; set; }
 
         Dictionary<string, bool> neighbours = new Dictionary<string, bool>();
 
@@ -55,6 +57,11 @@ namespace FormCrawler
         public Dictionary<string, bool> getAvailablePaths()
         {
             return neighbours;
+        }
+
+        public void Visit()
+        {
+            pBoxReference.BackgroundImage = RoomImg;
         }
 
         public void setPBoxReference(PictureBox _pBox)
