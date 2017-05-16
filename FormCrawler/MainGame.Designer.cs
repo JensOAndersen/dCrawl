@@ -33,6 +33,7 @@
             this.BtnLeft = new System.Windows.Forms.Button();
             this.BtnRight = new System.Windows.Forms.Button();
             this.RoomCommunication = new System.Windows.Forms.TextBox();
+            this.LookForItems = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // BtnUp
@@ -83,11 +84,22 @@
             this.RoomCommunication.Size = new System.Drawing.Size(250, 250);
             this.RoomCommunication.TabIndex = 4;
             // 
+            // LookForItems
+            // 
+            this.LookForItems.Location = new System.Drawing.Point(13, 362);
+            this.LookForItems.Name = "LookForItems";
+            this.LookForItems.Size = new System.Drawing.Size(134, 39);
+            this.LookForItems.TabIndex = 5;
+            this.LookForItems.Text = "Look for items";
+            this.LookForItems.UseVisualStyleBackColor = true;
+            this.LookForItems.Click += new System.EventHandler(this.LookForItems_Click);
+            // 
             // MainGame
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(802, 388);
+            this.ClientSize = new System.Drawing.Size(802, 609);
+            this.Controls.Add(this.LookForItems);
             this.Controls.Add(this.RoomCommunication);
             this.Controls.Add(this.BtnRight);
             this.Controls.Add(this.BtnLeft);
@@ -107,6 +119,7 @@
         private System.Windows.Forms.Button BtnLeft;
         private System.Windows.Forms.Button BtnDown;
         private System.Windows.Forms.Button BtnUp;
+        private System.Windows.Forms.Button LookForItems;
     }
 }
 

@@ -51,6 +51,9 @@ namespace FormCrawler
             //main loop of the method, this loop runs until it is impossible to place more rooms on the map.
             while (placingRooms)
             {
+                //creates an instance of the AddItems class, tried using static classes, but the random result wasnt satisfactory
+                AddItems aItems = new AddItems();
+
                 //eligible directions for a new room, needs to be within the loop because it needs to be reset every time the placement loops
                 List<string> validDirections = new List<string>();
 
@@ -82,8 +85,11 @@ namespace FormCrawler
 
                 //sets the exit path of the current room
                 currentRoom.setAvailableDirection(chosenDir);
-                
-                //adds a new room
+
+                //adds gold to the room
+                currentRoom.goldInRoom = aItems.AddGold(2, 15, rnd);
+
+                //adds a new room LOOK HERE, THIS IS WHERE THE ROOM IS ADDED TO THE 'MAP'
                 map[colPos, rowPos] = currentRoom;
 
                 //increments the colPos and rowPos values to reflect what direction was chosen for the next room (to be used in the next loopthrough)

@@ -20,6 +20,7 @@ namespace FormCrawler
         public int roomID { get; }
         public string roomName { get; }
         public Image RoomImg { get; set; }
+        public int goldInRoom { get; set; }
 
         Dictionary<string, bool> neighbours = new Dictionary<string, bool>();
 

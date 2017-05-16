@@ -14,6 +14,9 @@ namespace FormCrawler
 {
     public partial class MainGame : Form
     {
+        //position starts for the map and player characters.
+        public int topPosStart { get; set; } = 40;
+        public int leftPosStart { get; set; } = 340;
 
         //holds the variables to declare the map-size, set when the game opens
         public int mCol { get; set; } = 0;
@@ -79,6 +82,11 @@ namespace FormCrawler
 
             //starts the exploration
             dExplorer = new DungeonExplorer(this, map, curPlayer);
+
+            //this is a hack, its the players "icon", it brings it to the front, 
+            Control[] pBox = Controls.Find("player",true);
+            pBox[0].BringToFront();
+            pBox[0].BackColor = Color.Transparent;
         }
 
         private void PlaceMapOnForm()
@@ -86,8 +94,6 @@ namespace FormCrawler
             PictureBox pBox;
 
             //these two values needs to be changed if you want the map to spawn elsewhere
-            int topPosStart = 40;
-            int leftPosStart = 340;
 
             var exeDir = AppDomain.CurrentDomain.BaseDirectory;
             var imgDir = Path.Combine(exeDir, "../../Img");
@@ -125,7 +131,7 @@ namespace FormCrawler
                         }
                     }
 
-                    //creates an imagepat
+                    //creates an imagepath
                     imgPath = Path.Combine(imgDir, pngNames[whatImg]);
 
                     roomImg = Image.FromFile(imgPath);
@@ -174,6 +180,11 @@ namespace FormCrawler
         private void MapPanel_Paint_1(object sender, PaintEventArgs e)
         {
 
+        }
+
+        private void LookForItems_Click(object sender, EventArgs e)
+        {
+            dExplorer.LookForItems();
         }
     }
 }

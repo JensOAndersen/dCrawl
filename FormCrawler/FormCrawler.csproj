@@ -46,6 +46,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AddItems.cs" />
     <Compile Include="CreateMapArray.cs" />
     <Compile Include="DungeonExplorer.cs" />
     <Compile Include="MainGame.cs">
