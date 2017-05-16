@@ -81,6 +81,7 @@
             this.RoomCommunication.Location = new System.Drawing.Point(94, 64);
             this.RoomCommunication.Multiline = true;
             this.RoomCommunication.Name = "RoomCommunication";
+            this.RoomCommunication.ReadOnly = true;
             this.RoomCommunication.Size = new System.Drawing.Size(250, 250);
             this.RoomCommunication.TabIndex = 4;
             // 
@@ -106,7 +107,8 @@
             this.Controls.Add(this.BtnDown);
             this.Controls.Add(this.BtnUp);
             this.Name = "MainGame";
-            this.Text = "Form1";
+            this.Text = "Form Crawler";
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.MainGame_KeyDown);
             this.ResumeLayout(false);
             this.PerformLayout();
 

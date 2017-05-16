@@ -17,7 +17,6 @@ namespace FormCrawler
             {
                 return 0;
             }
-
         }
     }
 }

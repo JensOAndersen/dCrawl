@@ -86,6 +86,10 @@ namespace FormCrawler
             curRoom.Visit();
             playerBox.Location = new Point(mGame.leftPosStart + 16 + (curPlayer.colPos * mGame.tileSize), mGame.topPosStart + 16 + (curPlayer.rowPos * mGame.tileSize));
             CommunicateAvailableDirections(curRoom);
+            if (curRoom.isExit)
+            {
+                mGame.roomCom.Text += $"\r\nYou have reached the end of the dungeon, on your way you have picked up {curPlayer.money} gold";
+            }
         }
 
         private void CommunicateAvailableDirections(Room _curRoom)
@@ -134,12 +138,12 @@ namespace FormCrawler
             string output = "";
             if(curRoom.goldInRoom > 0)
             {
-                output = $"You picked up {curRoom.goldInRoom} gold, it was added to your wallet";
+                output = $"\r\nYou picked up {curRoom.goldInRoom} gold, it was added to your wallet";
                 curPlayer.money += curRoom.goldInRoom;
                 curRoom.goldInRoom = 0;
             } else
             {
-                output = "\nThere was no gold in the room";
+                output = "\r\nThere was no gold in the room";
             }
             mGame.roomCom.Text += output;
         }

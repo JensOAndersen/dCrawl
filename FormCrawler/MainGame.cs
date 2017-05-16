@@ -186,5 +186,29 @@ namespace FormCrawler
         {
             dExplorer.LookForItems();
         }
+
+        private void MainGame_KeyDown(object sender, KeyEventArgs e)
+        {
+            switch (e.KeyCode)
+            {
+                case Keys.W:
+                    dExplorer.Explore("north");
+                    break;
+                case Keys.S:
+                    dExplorer.Explore("south");
+                    break;
+                case Keys.A:
+                    dExplorer.Explore("west");
+                    break;
+                case Keys.D:
+                    dExplorer.Explore("east");
+                    break;
+                case Keys.Space:
+                    dExplorer.LookForItems();
+                    break;
+                default:
+                    break;
+            }
+        }
     }
 }
